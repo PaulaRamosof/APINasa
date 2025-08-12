@@ -1,0 +1,16 @@
+{
+  "name": "apinasa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+     "dev": "vite",
+     "build": "vite build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "vite": "^7.1.2"
+  }
+}
