@@ -1,11 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NASA APOD Explorer</title>
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    
+  <h1>NASA - Astronomy Picture of the Day</h1>
+
+  <div>
+    <input type="date" id="datePicker" max="">
+    <button id="searchBtn">Buscar</button>
+  </div>
+
+  <div id="apodContainer">
+    <h2 id="title"></h2>
+    <p id="date"></p>
+    <div id="mediaContainer"></div>
+    <p id="explanation"></p>
+    <button id="favBtn">Añadir a Favoritos ⭐</button>
+  </div>
+
+  <h3>Favoritos</h3>
+  <ul id="favoritesList"></ul>
+
+ <footer>
+  <p>&copy; 2025 NASA - Astronomy Picture of the Day. Todos los derechos reservados.</p>
+</footer>
+
+
+  <script type="module" src="./js/script.js"></script>
 </body>
 </html>
