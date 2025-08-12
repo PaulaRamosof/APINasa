@@ -1,55 +1,78 @@
-const key = 'RjGXDgj8bLifcEuErZtyc5vQE5aHyxxW74WWbynI';
-const url = `https://api.nasa.gov/planetary/apod?api_key=${key}`;
-const fecha = document.getElementById('consultarFecha');
+const API_KEY = import.meta.env.VITE_NASA_API_KEY;
+const API_URL = "https://api.nasa.gov/planetary/apod";
 
-//Constantes html
-const titulo = document.getElementById('titulo');
-let fechaConsulta = document.getElementById('consultarFecha').value;//Fecha a consultar
-const fechaFoto = document.getElementById('date');//Fecha de cuando se tomo la foto
-const imagen = document.getElementById('fotoDia');
-const explicacion = document.getElementById('date');
+const datePicker = document.getElementById("datePicker");
+const searchBtn = document.getElementById("searchBtn");
+const titleEl = document.getElementById("title");
+const dateEl = document.getElementById("date");
+const mediaContainer = document.getElementById("mediaContainer");
+const explanationEl = document.getElementById("explanation");
+const favBtn = document.getElementById("favBtn");
+const favoritesList = document.getElementById("favoritesList");
 
-fetch(url)
-    .then(respuestaServer => {
-        // Verificacion si la respuesta de la red fue exitosa.
-        if (!respuestaServer.ok) {
-            throw new Error(`Error HTTP! estado: ${response.status}`);
-        }
-        return respuestaServer.json(); // Convierte la respuesta a formato JSON.
-    })
-    .then(datosAPI => {
-        console.log("Objeto completo recibido de la API:", datosAPI);
-        titulo.textContent = datosAPI.title;
-        fechaFoto.textContent = datosAPI.date;
-        // Al asignar la URL al atributo 'src', el navegador mostrará la imagen.
-        imagen.src = datosAPI.url;
-        explicacion.textContent = datosAPI.explanation;
-    })
-    .catch(error => {
-        // Manejo de errores en caso de que la solicitud falle.
-        console.error('No se pudo obtener la imagen del día:', error);
-    });
+datePicker.max = new Date().toISOString().split("T")[0];
 
-    function buscarFotoFecha(fechaConsulta){
-        fetch(url)
-    .then(respuestaServer => {
-        // Verificacion si la respuesta de la red fue exitosa.
-        if (!respuestaServer.ok) {
-            throw new Error(`Error HTTP! estado: ${response.status}`);
-        }
-        return respuestaServer.json(); // Convierte la respuesta a formato JSON.
-    })
-    .then(datosAPI => {
-        console.log("Objeto completo recibido de la API:", datosAPI);
-        titulo.textContent = datosAPI.title;
-        fechaFoto.textContent = datosAPI.date;
-        // Al asignar la URL al atributo 'src', el navegador mostrará la imagen.
-        imagen.src = datosAPI.url;
-        explicacion.textContent = datosAPI.explanation;
-    })
-    .catch(error => {
-        // Manejo de errores en caso de que la solicitud falle.
-        console.error('No se pudo obtener la imagen del día:', error);
-    });
+async function fetchAPOD(date = "") {
+  try {
+    const res = await fetch(`${API_URL}?api_key=${API_KEY}&date=${date}`);
+    const data = await res.json();
+    displayAPOD(data);
+  } catch (error) {
+    console.error("Error al obtener APOD:", error);
+  }
+}
 
-    }
+function displayAPOD(data) {
+  titleEl.textContent = data.title;
+  dateEl.textContent = data.date;
+  explanationEl.textContent = data.explanation;
+  
+  mediaContainer.innerHTML = "";
+  if (data.media_type === "image") {
+    const img = document.createElement("img");
+    img.src = data.url;
+    img.alt = data.title;
+    mediaContainer.appendChild(img);
+  } else if (data.media_type === "video") {
+    const iframe = document.createElement("iframe");
+    iframe.src = data.url;
+    iframe.width = "100%";
+    iframe.height = "400";
+    mediaContainer.appendChild(iframe);
+  }
+
+  favBtn.onclick = () => addFavorite(data);
+}
+
+function addFavorite(apod) {
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  if (!favorites.some(fav => fav.date === apod.date)) {
+    favorites.push(apod);
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    loadFavorites();
+  }
+}
+
+function loadFavorites() {
+  favoritesList.innerHTML = "";
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  favorites.forEach(fav => {
+    const li = document.createElement("li");
+    li.textContent = `${fav.date} - ${fav.title}`;
+    li.style.cursor = "pointer";
+    li.onclick = () => displayAPOD(fav);
+    favoritesList.appendChild(li);
+  });
+}
+
+searchBtn.addEventListener("click", () => {
+  const date = datePicker.value;
+  if (new Date(date) > new Date()) {
+    alert("No puedes seleccionar una fecha futura");
+    return;
+  }
+  fetchAPOD(date);
+});
+
+fetchAPOD();
+loadFavorites();

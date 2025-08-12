@@ -1,31 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NASA APOD Explorer</title>
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
-    <div class="apod-container">
-        <h1 id="title">API NASA</h1>
-        <input id="consultarFecha" type="date">
-        <button type="button" id="searchBtn" onclick="buscarFotoFecha()">Buscar</button>
-        <div id="media">
-            <h2 id="titulo">Titulo imagen</h2>
-            <p id="date">Fecha: --</p>
-            <img id="fotoDia" src="" alt="">
-        </div>
-        <div class="explanation">
-            <p id="explanation">Cargando explicación científica...</p>
-            <button>Añadir a favoritos</button>
-        </div>
-    </div>
-    <div class="favoritos">
-        <p>Todavia no tienes favoritos</p>
-    </div>
-    <script src="./js/script.js"></script>
+  <h1>NASA - Astronomy Picture of the Day</h1>
+
+  <div>
+    <input type="date" id="datePicker" max="">
+    <button id="searchBtn">Buscar</button>
+  </div>
+
+  <div id="apodContainer">
+    <h2 id="title"></h2>
+    <p id="date"></p>
+    <div id="mediaContainer"></div>
+    <p id="explanation"></p>
+    <button id="favBtn">Añadir a Favoritos ⭐</button>
+  </div>
+
+  <h3>Favoritos</h3>
+  <ul id="favoritesList"></ul>
+
+ <footer>
+  <p>&copy; 2025 NASA - Astronomy Picture of the Day. Todos los derechos reservados.</p>
+</footer>
+
+
+  <script type="module" src="./js/script.js"></script>
 </body>
 
 </html>
