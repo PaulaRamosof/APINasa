@@ -11,20 +11,21 @@
     <div class="apod-container">
         <h1 id="title">API NASA</h1>
         <input id="consultarFecha" type="date">
-        <p id="date">Fecha: --</p>
-        <button type="button" id="searchBtn">Buscar</button>
+        <button type="button" id="searchBtn" onclick="buscarFotoFecha()">Buscar</button>
         <div id="media">
-            <img src="" alt="">
-            <h2>Titulo imagen</h2>
+            <h2 id="titulo">Titulo imagen</h2>
+            <p id="date">Fecha: --</p>
+            <img id="fotoDia" src="" alt="">
         </div>
-        <div class="explanation" id="explanation">
-            <p>Cargando explicación científica...</p>
+        <div class="explanation">
+            <p id="explanation">Cargando explicación científica...</p>
             <button>Añadir a favoritos</button>
         </div>
     </div>
     <div class="favoritos">
         <p>Todavia no tienes favoritos</p>
     </div>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>
