@@ -26,7 +26,7 @@ function displayAPOD(data) {
   titleEl.textContent = data.title;
   dateEl.textContent = data.date;
   explanationEl.textContent = data.explanation;
-  
+
   mediaContainer.innerHTML = "";
   if (data.media_type === "image") {
     const img = document.createElement("img");
@@ -76,3 +76,4 @@ searchBtn.addEventListener("click", () => {
 
 fetchAPOD();
 loadFavorites();
+
