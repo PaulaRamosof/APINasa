@@ -87,7 +87,6 @@ body {
     margin-bottom: 10px;
 }
 
-/* Inputs de fecha */
 input[type="date"] {
     background-color: #0d1117;
     color: #e6edf3;
@@ -97,6 +96,19 @@ input[type="date"] {
     font-size: 1em;
     cursor: pointer;
     box-shadow: 0 0 5px rgba(88, 166, 255, 0.3);
+}
+
+/* Estilo del ícono del calendario */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Convierte el ícono oscuro en blanco */
+    opacity: 0.9;
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+input[type="date"]:hover::-webkit-calendar-picker-indicator {
+    opacity: 1;
+    transform: scale(1.1); /* Efecto sutil al pasar el mouse */
 }
 
 /* Botón galáctico */
